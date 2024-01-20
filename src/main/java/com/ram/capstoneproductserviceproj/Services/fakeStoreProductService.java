@@ -83,7 +83,17 @@ public class fakeStoreProductService implements  productService
     }
 
     @Override
-    public List<Product> getProductsByCategory(String Category) {
-        return null;
+    public List<Product> getProductsByCategory(String Category)
+    {
+        fakeStoreProductDTO[] responseDTO = restTemplate.getForObject("https://fakestoreapi.com/products/category/"+Category, fakeStoreProductDTO[].class);
+
+        List<Product> response = new ArrayList<>();
+
+        for(fakeStoreProductDTO ans:responseDTO)
+        {
+            response.add(convertDTOIntoProduct(ans));
+        }
+
+        return response;
     }
 }

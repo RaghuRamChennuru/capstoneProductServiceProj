@@ -29,18 +29,10 @@ public class fakeStoreCategoryService implements categoryService
         return newCategory;
     }
     @Override
-    public List<Category> getAllCategories()
+    public List<String> getAllCategories()
     {
-        fakeStoreCategoryDTO[] responseDTO  = restTemplate.getForObject("https://fakestoreapi.com/products/categories", fakeStoreCategoryDTO[].class);
+        List<String> response  = restTemplate.getForObject("https://fakestoreapi.com/products/categories", List.class);
 
-        List<Category> categoryResp = new ArrayList<>();
-
-
-        for(fakeStoreCategoryDTO ans:responseDTO)
-        {
-            categoryResp.add(convertDTOintoCategory(ans));
-        }
-
-        return categoryResp;
+        return response;
     }
 }

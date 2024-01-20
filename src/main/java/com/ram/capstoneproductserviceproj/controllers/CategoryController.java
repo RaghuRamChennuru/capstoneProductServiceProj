@@ -23,7 +23,7 @@ public class CategoryController
     }
 
     @GetMapping()
-    public List<Category> getAllCategories()
+    public List<String> getAllCategories()
     {
         return service.getAllCategories();
     }
