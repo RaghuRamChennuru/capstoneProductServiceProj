@@ -38,13 +38,13 @@ public class ProductController
         return ProductService.getProductsByCategory(name);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct)
     {
         return ProductService.updateProduct(id,requestProduct);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct)
     {
         return ProductService.replaceProduct(id, requestProduct);
@@ -54,6 +54,20 @@ public class ProductController
     public Product addNewProduct(@RequestBody Product product)
     {
         return ProductService.addNewProduct(product);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable("id") Long id)
+    {
+        boolean response = ProductService.deleteProduct(id);
+
+        if(response)
+        {
+            return "Product Deleted";
+        }
+
+        return "Failed To Delete";
     }
 
 }

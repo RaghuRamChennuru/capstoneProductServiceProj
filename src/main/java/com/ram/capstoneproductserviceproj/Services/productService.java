@@ -17,7 +17,7 @@ public interface productService
 
     List<Product> getAllProducts();
 
-    boolean deleteProduct(Product product);
+    boolean deleteProduct(Long id);
     List<Product> getProductsByCategory(String Category);
 
 
