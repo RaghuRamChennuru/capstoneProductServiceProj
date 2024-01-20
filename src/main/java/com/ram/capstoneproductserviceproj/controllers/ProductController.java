@@ -3,10 +3,7 @@ package com.ram.capstoneproductserviceproj.controllers;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import com.ram.capstoneproductserviceproj.Services.productService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,24 @@ public class ProductController
     public List<Product> getProductsByCategory(@PathVariable("name") String name)
     {
         return ProductService.getProductsByCategory(name);
+    }
+
+    @PatchMapping("{id}")
+    public Product updateProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct)
+    {
+        return ProductService.updateProduct(id,requestProduct);
+    }
+
+    @PutMapping("{id}")
+    public Product replaceProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct)
+    {
+        return ProductService.replaceProduct(id, requestProduct);
+    }
+
+    @PostMapping()
+    public Product addNewProduct(@RequestBody Product product)
+    {
+        return ProductService.addNewProduct(product);
     }
 
 }
