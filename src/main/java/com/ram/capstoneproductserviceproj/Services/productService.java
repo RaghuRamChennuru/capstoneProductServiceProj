@@ -1,5 +1,6 @@
 package com.ram.capstoneproductserviceproj.Services;
 
+import com.ram.capstoneproductserviceproj.Models.Category;
 import com.ram.capstoneproductserviceproj.Models.Product;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface productService
     List<Product> getAllProducts();
 
     boolean deleteProduct(Product product);
+    List<Product> getProductsByCategory(String Category);
 
 
 }

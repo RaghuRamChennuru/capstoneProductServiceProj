@@ -81,4 +81,9 @@ public class fakeStoreProductService implements  productService
     public boolean deleteProduct(Product product) {
         return false;
     }
+
+    @Override
+    public List<Product> getProductsByCategory(String Category) {
+        return null;
+    }
 }
