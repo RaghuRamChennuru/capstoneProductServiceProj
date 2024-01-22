@@ -1,6 +1,7 @@
 package com.ram.capstoneproductserviceproj.Services;
 
 import com.ram.capstoneproductserviceproj.DTO.fakeStoreProductDTO;
+import com.ram.capstoneproductserviceproj.Exceptions.ProductNotFoundException;
 import com.ram.capstoneproductserviceproj.Models.Category;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,15 @@ public class fakeStoreProductService implements  productService
     }
 
     @Override
-    public Product getSingleProduct(Long id)
-    {
+    public Product getSingleProduct(Long id) throws ProductNotFoundException {
+        //int a = 1/0;
+
        fakeStoreProductDTO response =  restTemplate.getForObject("https://fakestoreapi.com/products/"+id, fakeStoreProductDTO.class);
+
+       if(response == null)
+       {
+           throw new ProductNotFoundException("Product With Selected Id Not Found");
+       }
 
        Product productResp = convertDTOIntoProduct(response);
 

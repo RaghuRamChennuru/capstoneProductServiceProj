@@ -1,8 +1,11 @@
 package com.ram.capstoneproductserviceproj.controllers;
 
+import com.ram.capstoneproductserviceproj.Exceptions.ProductNotFoundException;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import com.ram.capstoneproductserviceproj.Services.productService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +23,10 @@ public class ProductController
     }
 
     @GetMapping("/{id}")
-    public Product getProductForId(@PathVariable("id") Long id)
+    public ResponseEntity<Product> getProductForId(@PathVariable("id") Long id) throws ProductNotFoundException
     {
-        Product respProduct = ProductService.getSingleProduct(id);
+        ResponseEntity<Product> respProduct = new ResponseEntity<>(ProductService.getSingleProduct(id), HttpStatus.OK);
+       // Product respProduct = ProductService.getSingleProduct(id);
         return respProduct;
     }
 
