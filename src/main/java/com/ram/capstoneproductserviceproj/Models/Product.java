@@ -1,17 +1,24 @@
 package com.ram.capstoneproductserviceproj.Models;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Product
+@Entity
+
+public class Product extends Base
 {
-    private long id;
+   // @Id
+    //private long id;
     private String title;
     private double price;
 
+    @ManyToOne
     private Category category;
 
     private String description;
