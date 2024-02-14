@@ -5,6 +5,7 @@ import com.ram.capstoneproductserviceproj.Exceptions.ProductNotFoundException;
 import com.ram.capstoneproductserviceproj.Models.Category;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 @Service
+@Primary
 public class fakeStoreProductService implements  productService
 {
     private RestTemplate restTemplate;
