@@ -1,10 +1,9 @@
 package com.ram.capstoneproductserviceproj.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.id.IncrementGenerator;
 
 import java.util.Date;
 
@@ -15,7 +14,8 @@ import java.util.Date;
 public class Base
 {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private Date CreatedOn;
     private Date UpdatedOn;
     private boolean isDeleted;

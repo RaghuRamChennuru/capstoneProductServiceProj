@@ -1,15 +1,19 @@
 package com.ram.capstoneproductserviceproj.Services;
 
 import com.ram.capstoneproductserviceproj.Exceptions.ProductNotFoundException;
+import com.ram.capstoneproductserviceproj.Models.Category;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import com.ram.capstoneproductserviceproj.repositries.categoryRepositry;
 import com.ram.capstoneproductserviceproj.repositries.productRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
+@Service("ProductRepoService")
+//@Primary
 public class repositryProductService implements  productService
 {
     private productRepositry ProductRepo;
@@ -23,13 +27,74 @@ public class repositryProductService implements  productService
     }
 
     @Override
-    public Product getSingleProduct(Long id) throws ProductNotFoundException {
-        return null;
+    public Product getSingleProduct(Long id) throws ProductNotFoundException
+    {
+        Optional<Product> responseProduct = ProductRepo.getProductById(id);
+
+        if(responseProduct.isEmpty())
+        {
+            throw new ProductNotFoundException("Product With Id Not Found");
+        }
+
+        return responseProduct.get();
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
-        return null;
+    public Product updateProduct(Long id, Product product) throws ProductNotFoundException
+    {
+
+        Optional<Product> respProduct = ProductRepo.findById(id);
+
+
+        if(respProduct.isEmpty())
+        {
+            throw new ProductNotFoundException("Product With The Id Not Found");
+        }
+
+        Product productObject = respProduct.get();
+
+        if(product.getPrice() != null)
+        {
+            productObject.setPrice(product.getPrice());
+        }
+
+        if(product.getDescription() != null)
+        {
+            productObject.setDescription(product.getDescription());
+        }
+
+        if(product.getTitle() != null)
+        {
+            productObject.setTitle(product.getTitle());
+        }
+
+        if(product.getUrl() != null)
+        {
+            productObject.setUrl(product.getUrl());
+        }
+
+        if(product.getCategory() != null)
+        {
+            Optional<Category> respCategory = CategoryRepo.getCategoriesById(product.getCategory().getId());
+
+            Category newCategory = null;
+
+            if(respCategory.isEmpty())
+            {
+                 newCategory = CategoryRepo.save(product.getCategory());
+            }
+            else {
+                newCategory = respCategory.get();
+            }
+
+            product.setCategory(newCategory);
+        }
+
+        //product.setId(id);
+
+        Product updatedProduct = addNewProduct(product);
+
+        return updatedProduct;
     }
 
     @Override
@@ -38,13 +103,40 @@ public class repositryProductService implements  productService
     }
 
     @Override
-    public Product addNewProduct(Product product) {
-        return null;
+    public Product addNewProduct(Product product)
+    {
+        Category ansCategory = product.getCategory();
+
+        Category newCategory = null;
+
+        if(ansCategory.getId() != null)
+        {
+            Optional<Category> categoryResp  = CategoryRepo.getCategoriesById(ansCategory.getId());
+
+            if(categoryResp.isEmpty())
+            {
+                newCategory = CategoryRepo.save(ansCategory);
+            }
+
+        }
+        else
+        {
+            newCategory = CategoryRepo.save(ansCategory);
+        }
+
+        product.setCategory(newCategory);
+
+        Product newProduct = ProductRepo.save(product);
+
+        return newProduct;
     }
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+
+        List<Product> response = ProductRepo.findAll();
+
+        return response;
     }
 
     @Override

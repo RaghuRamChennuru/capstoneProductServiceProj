@@ -4,6 +4,7 @@ import com.ram.capstoneproductserviceproj.Exceptions.ProductNotFoundException;
 import com.ram.capstoneproductserviceproj.Models.Product;
 import com.ram.capstoneproductserviceproj.Services.productService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ProductController
     private productService ProductService;
 
     @Autowired
-    ProductController(productService productService)
+    ProductController(@Qualifier("ProductRepoService") productService productService)
     {
         this.ProductService = productService;
     }
@@ -43,8 +44,7 @@ public class ProductController
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct)
-    {
+    public Product updateProduct(@PathVariable("id") Long id,@RequestBody Product requestProduct) throws ProductNotFoundException {
         return ProductService.updateProduct(id,requestProduct);
     }
 

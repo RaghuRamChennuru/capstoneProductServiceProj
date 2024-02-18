@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("CategoryFakeStore")
 public class fakeStoreCategoryService implements categoryService
 {
 
