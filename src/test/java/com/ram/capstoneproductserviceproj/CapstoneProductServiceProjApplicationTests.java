@@ -25,7 +25,7 @@ class CapstoneProductServiceProjApplicationTests {
 	@Transactional
 	void doTesting()
 	{
-		List<Product> resp =  productRepo.getAllProductsLessThan100();
+		/*List<Product> resp =  productRepo.getAllProductsLessThan100();
 
 		List<Product> resp1 = productRepo.doSomething1();
 
@@ -34,7 +34,7 @@ class CapstoneProductServiceProjApplicationTests {
 		//Projections
 		ProductProjection resp4 = productRepo.getProductDetailsByTitle("Braclet New");
 
-		System.out.println(resp4.getid() + " - " + resp4.getdescription());
+		System.out.println(resp4.getid() + " - " + resp4.getdescription());*/
 	}
 
 }

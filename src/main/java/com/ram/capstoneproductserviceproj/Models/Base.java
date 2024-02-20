@@ -14,7 +14,7 @@ import java.util.Date;
 public class Base
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date CreatedOn;
     private Date UpdatedOn;
